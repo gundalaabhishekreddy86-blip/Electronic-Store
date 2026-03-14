@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Electronics Store</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+}
+
+/* HERO */
+
+.hero{
+background:linear-gradient(120deg,#007bff,#00c6ff);
+color:white;
+text-align:center;
+padding:60px;
+}
+
+.search-box{
+width:400px;
+margin:auto;
+}
+
+/* PRODUCTS */
+
+.products{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+padding:40px;
+}
+
+.card{
+width:220px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+.card img{
+height:150px;
+object-fit:cover;
+}
+
+/* FEATURES */
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+padding:40px;
+}
+
+.feature-box{
+background:#0d6efd;
+color:white;
+padding:30px;
+border-radius:10px;
+text-align:center;
+transition:0.3s;
+}
+
+.feature-box img{
+width:90px;
+margin-bottom:10px;
+}
+
+.feature-box:hover{
+transform:scale(1.05);
+background:#004ec2;
+}
+
+/* CART PANEL */
+
+.cart-panel{
+display:none;
+position:fixed;
+top:0;
+right:0;
+width:350px;
+height:100%;
+background:white;
+box-shadow:-5px 0 10px rgba(0,0,0,0.3);
+padding:20px;
+overflow:auto;
+}
+
+.cart-item{
+border-bottom:1px solid #ddd;
+padding:10px 0;
+}
+
+/* CHECKOUT */
+
+.checkout{
+display:none;
+padding:40px;
+}
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Electronics Store</h1>
+<p>Smart Gadgets for Everyone</p>
+
+<div class="search-box">
+<input type="text" id="search" class="form-control" placeholder="Search product...">
+</div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section class="products" id="products">
+
+<div class="card product" data-name="Smartphone">
+
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Smartphone</h5>
+<p>$500</p>
+
+<button class="btn btn-primary" onclick="addToCart('Smartphone',500)">Buy</button>
+
+</div>
+</div>
+
+
+<div class="card product" data-name="Laptop">
+
+<img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Laptop</h5>
+<p>$1000</p>
+
+<button class="btn btn-primary" onclick="addToCart('Laptop',1000)">Buy</button>
+
+</div>
+</div>
+
+
+<div class="card product" data-name="Headphones">
+
+<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Headphones</h5>
+<p>$150</p>
+
+<button class="btn btn-primary" onclick="addToCart('Headphones',150)">Buy</button>
+
+</div>
+</div>
+
+
+<div class="card product" data-name="Smartwatch">
+
+<img src="https://images.unsplash.com/photo-1544117519-31a4b719223d">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Smartwatch</h5>
+<p>$180</p>
+
+<button class="btn btn-primary" onclick="addToCart('Smartwatch',180)">Buy</button>
+
+</div>
+</div>
+
+
+<div class="card product" data-name="Tablet">
+
+<img src="https://images.unsplash.com/photo-1542751110-97427bbecf20">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Tablet</h5>
+<p>$300</p>
+
+<button class="btn btn-primary" onclick="addToCart('Tablet',300)">Buy</button>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features">
+
+<div class="feature-box">
+
+<img src="fast-delivery.png">
+
+<h3>Fast Delivery</h3>
+<p>Get products quickly</p>
+
+</div>
+
+<div class="feature-box">
+
+<img src="https://cdn-icons-png.flaticon.com/512/1170/1170627.png">
+
+<h3>Best Price</h3>
+<p>Affordable electronics</p>
+
+</div>
+
+<div class="feature-box">
+
+<img src="https://cdn-icons-png.flaticon.com/512/190/190411.png">
+
+<h3>Warranty</h3>
+<p>1 Year warranty</p>
+
+</div>
+
+<div class="feature-box">
+
+<img src="https://cdn-icons-png.flaticon.com/512/597/597177.png">
+
+<h3>Support</h3>
+<p>24/7 customer service</p>
+<p>Customer CareNO:080-2225-2225</p>
+
+</div>
+
+</section>
+
+
+<!-- CART PANEL -->
+
+<div class="cart-panel" id="cart">
+
+<h3>Shopping Cart</h3>
+
+<div id="cartItems"></div>
+
+<h4>Total: $<span id="totalAmount">0</span></h4>
+
+<button class="btn btn-success mt-3" onclick="checkout()">Buy Now</button>
+<button class="btn btn-danger mt-3" onclick="clearCart()">Clear Cart</button>
+
+</div>
+
+
+<!-- CHECKOUT FORM -->
+
+<div class="checkout container" id="checkout">
+
+<h2>Checkout</h2>
+
+<h4>Order Total: $<span id="checkoutTotal">0</span></h4>
+
+<form>
+
+<div class="mb-3">
+<label>Name</label>
+<input class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Email</label>
+<input class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Address</label>
+<textarea class="form-control" required></textarea>
+</div>
+
+<div class="mb-3">
+<label>Payment Method</label>
+
+<select class="form-control">
+
+<option>UPI</option>
+<option>Cash On Delivery</option>
+<option>Debit Card</option>
+<option>Credit Card</option>
+
+</select>
+
+</div>
+
+<button class="btn btn-primary">Place Order</button>
+
+</form>
+
+</div>
+
+
+<footer>
+
+<p>© 2026 Electronics Store</p>
+<p>Email.id:Electronics.store.@gmail.com</p>
+
+</footer>
+
+
+<script>
+
+let cart=[];
+let total=0;
+
+function addToCart(name,price){
+
+cart.push({name,price});
+
+total+=price;
+
+document.getElementById("cart").style.display="block";
+
+displayCart();
+
+}
+
+function displayCart(){
+
+let cartItems=document.getElementById("cartItems");
+
+cartItems.innerHTML="";
+
+cart.forEach(item=>{
+
+cartItems.innerHTML+=`<div class="cart-item">${item.name} - $${item.price}</div>`;
+
+});
+
+document.getElementById("totalAmount").innerText=total;
+
+}
+
+function clearCart(){
+
+cart=[];
+total=0;
+
+displayCart();
+
+document.getElementById("totalAmount").innerText=0;
+
+}
+
+function checkout(){
+
+document.getElementById("products").style.display="none";
+
+document.querySelector(".features").style.display="none";
+
+document.getElementById("cart").style.display="none";
+
+document.getElementById("checkout").style.display="block";
+
+document.getElementById("checkoutTotal").innerText=total;
+
+}
+
+
+/* SEARCH */
+
+const search=document.getElementById("search");
+
+const products=document.querySelectorAll(".product");
+
+search.addEventListener("keyup",function(){
+
+let value=search.value.toLowerCase();
+
+products.forEach(function(product){
+
+let name=product.dataset.name.toLowerCase();
+
+if(name.includes(value))
+product.style.display="block";
+else
+product.style.display="none";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
